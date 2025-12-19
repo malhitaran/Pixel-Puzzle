@@ -34,19 +34,31 @@ Pixel Puzzle is a pattern-copying game written entirely in low level STUMP assem
 ---
 ## Main Game Logic
 
-The game runs as a fixed execution cycle (mirroring the `GAME LOGIC` section in the assembly).
+This project’s core loop follows the same execution cycle shown in the `GAME LOGIC`
+comments in `pixel_puzzel.s`.
 
 ### Pixel Puzzles Execution Cycle
 
 ```mermaid
-flowchart LR
-  S0["[0] RESET / INIT SYSTEM"] --> S1["[1] INIT DISPLAY"]
-  S1 --> S2["[2] DISPLAYING LEVEL"]
-  S2 --> S3["[3] ASSESSING USER INPUT"]
-  S3 --> S4["[4] DRAW PIXEL"]
-  S4 --> S5["[5] VERIFY"]
-  S5 --> S6{"[6] CHECK FOR WIN"}
-  S6 -- Win --> WIN["WIN (LEVEL COMPLETE)"]
-  S6 -- Otherwise --> FAIL["[6] OTHERWISE FAIL"]
-  FAIL --> S0
+flowchart TB
+
+  %% --- TOP ROW (left -> right) ---
+  subgraph TOP[" "]
+    direction LR
+    S0["[0] RESET / INIT<br/>SYSTEM"] --> S1["[1] INIT<br/>DISPLAY"] --> S2["[2] DISPLAYING<br/>LEVEL"] --> S3["[3] ASSESSING<br/>USER INPUT"]
+  end
+
+  %% --- BOTTOM ROW (right -> left) ---
+  subgraph BOTTOM[" "]
+    direction RL
+    S4["[4] DRAW<br/>PIXEL"] --> S5["[5] VERIFY"] --> S6["[6] CHECK<br/>FOR WIN"] --> F6["[6] OTHERWISE<br/>FAIL"]
+  end
+
+  %% --- Vertical drop + loopback (matches your ASCII) ---
+  S3 --> S4
+  F6 --> S0
+
+  %% Hide the subgraph boxes (cleaner look)
+  style TOP fill:transparent,stroke:transparent
+  style BOTTOM fill:transparent,stroke:transparent
 
