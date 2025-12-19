@@ -29,12 +29,12 @@ Pixel Puzzle is a pattern-copying game written entirely in low level STUMP assem
 
 This repository follows the structure provided for the university exercise.
 
-- **`Exercise3/`**  
-  Contains the full Pixel Puzzle project as submitted for the coursework.
-
 - **`Exercise3/pixel_puzzel.s`**  
-  The **main source file** containing all core game logic, including the execution
-  cycle described in the *Main Game Logic* section.
+  The **main source file** containing all core game logic,
+
+- **`Exercise3/pixel_puzzle.kmd`**  
+  Config file
+
 
 
 ## Main Game Logic
