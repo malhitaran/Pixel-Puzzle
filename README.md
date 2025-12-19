@@ -1,6 +1,6 @@
 # Pixel Puzzle 🎮🧩
 
-Pixel Puzzle is a simple pattern-copying game: you’re shown a target pixel pattern, and your goal is to recreate it by toggling pixels on the grid until your board matches the target.
+Pixel Puzzle is a pattern-copying game written entirely in low level STUMP assembly code which runs on a STUMP processor we designed and built: you’re shown a target pixel pattern, and your goal is to recreate it by toggling pixels on the grid until your board matches the target.
 
 > This repo contains my **Exercise 3** submission files which achieved a 96% mark.
 
@@ -17,9 +17,11 @@ Pixel Puzzle is a simple pattern-copying game: you’re shown a target pixel pat
 
 ## How the Game Works
 
-- A target pattern is displayed.
+- A random target pattern is displayed.
 - You move around the grid and toggle pixels on/off.
 - The objective is to match the target pattern as efficiently as possible.
+- The game gets increasingly more difficult
+- Once a player fails wrongly selected pixels flash, correct pixels selected stay red, unselected correct pixels go green.
 
 ---
 
@@ -30,16 +32,62 @@ Pixel Puzzle is a simple pattern-copying game: you’re shown a target pixel pat
   - `pixel_puzzel.s.kmd` — supporting/config file
 
 ---
+## Main Game Logic
 
-## How to Run
+The Pixel Puzzle game follows a fixed execution cycle that continuously updates
+the display, processes user input, and checks win/fail conditions.
 
-This project was built for a university exercise environment.
+### Execution Cycle Overview
 
-**Typical workflow:**
-1. Open the project in the provided simulator/toolchain for the module/course.
-2. Assemble/build `pixel_puzzel.s`.
-3. Run the program and follow the on-screen output/controls.
 
+flowchart LR
+    A[Reset / Initialize System] --> B[Initialize Display]
+    B --> C[Display Level]
+    C --> D[Assess User Input]
+    D --> E[Draw Pixel]
+    E --> F[Verify Move]
+    F --> G{Win Condition?}
+    G -- Yes --> H[Game Complete]
+    G -- No --> D
+    D --> I{Invalid / Fail State?}
+    I -- Yes --> J[Fail / Retry]
+    J --> A
+sql
+Copy code
+
+This **directly maps** to your assembly comments and makes the cycle *immediately understandable*.
+
+---
+
+## ✅ Then explain each stage (this is the right move)
+After the diagram, explain each block clearly:
+
+```md
+### Logic Stages
+
+**Reset / Initialize System**  
+Resets registers, clears memory, and prepares the system for execution.
+
+**Initialize Display**  
+Sets up the pixel grid and prepares the output buffer for rendering.
+
+**Display Level**  
+Renders the current puzzle state to the screen.
+
+**Assess User Input**  
+Reads user controls and determines the intended action.
+
+**Draw Pixel**  
+Updates the grid based on the user input.
+
+**Verify Move**  
+Checks whether the move is valid and updates internal state.
+
+**Win Condition Check**  
+Determines whether the puzzle has been successfully completed.
+
+**Fail / Retry**  
+Handles invalid moves or failed attempts and resets the cycle if needed.
 ---
 
 ## Notes
