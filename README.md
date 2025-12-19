@@ -1,48 +1,72 @@
 # Pixel Puzzle 🎮🧩
 
-Pixel Puzzle is a pattern-copying game written entirely in low level STUMP assembly code which runs on a STUMP processor we designed and built: you’re shown a target pixel pattern, and your goal is to recreate it by toggling pixels on the grid until your board matches the target.
+Pixel Puzzle is a memory and pattern-copying game written entirely in low-level **STUMP** assembly, running on a custom STUMP processor and peripheral board.
 
-> This repo contains my **Exercise 3** submission files which achieved a 96% mark.
+You’re briefly shown a random target pattern on the 8×8 LED matrix. Your job is to recreate that pattern by moving a cursor around the grid and toggling pixels on or off. As levels increase, more pixels are added to the pattern and the game becomes harder.
+
+> This repo contains my **COMP22111 Exercise 3** submission, which achieved a **96%** mark.
 
 ---
 
-## Demo Videos
+## Demo
 
-**Gameplay demo (click to watch):**  
+**Gameplay demo (click to watch):**
 
 <a href="https://youtube.com/shorts/2wOikNK8kIo?feature=share">
-  <img src="assets/gameplay.gif" width="260">
+  <img src="assets/gameplay.gif" width="260" alt="Pixel Puzzle gameplay GIF">
 </a>
+
 ---
 
 ## How the Game Works
 
-- A random target pattern is displayed.
-- You move around the grid and toggle pixels on/off.
-- The objective is to match the target pattern as efficiently as possible.
-- The game gets increasingly more difficult
-- Once a player fails wrongly selected pixels flash, correct pixels selected stay red, unselected correct pixels go green.
+- At the start of each level, a **random target pattern** is displayed on the LED matrix.
+- The pattern is also stored in a **level memory table** in RAM.
+- You move a cursor over the 8×8 grid and **toggle pixels on/off** to build your guess.
+- Each selected pixel is tracked in a separate **user selection table**.
+- Pressing `#` (**submit**) compares both tables:
+  - ✅ Pixels you selected **and** that belong to the pattern stay **red**.
+  - ❌ Pixels you **missed** (not selected but part of the pattern) are shown in **green**.
+  - ❌ Pixels you selected that **weren’t** in the pattern flash **red/black**.
+- If the tables match exactly, you advance to the next level (with more pixels).
+- You can perform a **hard reset** at any time with **switch SW-D**, which:
+  - Resets the level counter to 1  
+  - Clears both memory tables and the matrix  
+  - Restores the intro screen
+
+---
+
+## Controls
+
+All movement & actions use the keypad:
+
+- `2` – Move **up**
+- `8` – Move **down**
+- `4` – Move **left**
+- `6` – Move **right**
+- `5` – **Toggle/select** the current pixel
+- `#` – **Submit** your pattern (check for win / show fail feedback)
+- **SW-D** (on the switch bank) – **Hard reset** back to level 1
 
 ---
 
 ## Project Structure
 
-This repository follows the structure provided for the university exercise.
+This repository follows the structure provided for the exercise:
 
 - **`Exercise3/pixel_puzzel.s`**  
-  The **main source file** containing all core game logic,
+  Main source file containing all core game logic and table definitions.
 
 - **`Exercise3/pixel_puzzle.kmd`**  
-  Config file
+  Board configuration file for the CAD toolchain.
 
-
+---
 
 ## Main Game Logic
 
-This project’s core loop follows the same execution cycle shown in the `GAME LOGIC`
-comments in `pixel_puzzel.s`.
+The core loop follows the execution cycle documented in the `GAME LOGIC` comments in `pixel_puzzel.s`.
 
-### Pixel Puzzles Execution Cycle
+### Pixel Puzzle Execution Cycle
 
 ```mermaid
 flowchart TB
@@ -59,44 +83,10 @@ flowchart TB
     S4["[4] DRAW<br/>PIXEL"] --> S5["[5] VERIFY"] --> S6["[6] CHECK<br/>FOR WIN"] --> F6["[6] OTHERWISE<br/>FAIL"]
   end
 
-  %% --- Vertical drop + loopback (matches your ASCII) ---
+  %% --- Vertical drop + loopback ---
   S3 --> S4
   F6 --> S0
 
-  %% Hide the subgraph boxes (cleaner look)
   style TOP fill:transparent,stroke:transparent
   style BOTTOM fill:transparent,stroke:transparent
-```
-
-## How I made the code efficient
-
-- Memory tables
-- Jump and branches via stored locations in memory tables then overwriting PC value
-- Reusing subroutines e.g. reset
-
-## [0] RESET / INIT
-
-Everything is resetted, including all peripherals used and memory tables if the level is greater than 1
-initial variables are set
-
-## [1] INIT DISPLAY
-on the LCD where pixel puzzle displays going left to right vice versa if the game starts up, otherwise the if the level is greater than 1 we display the current level
-
-## [2] DISPLAY LEVEL
-Create random positions then store these values in the level memory table
-
-## [3] ASSESSING USER INPUT
-Read keypad input and assess what user has pressed
-
-## [4] DRAW PIXEL
-based on whatt user selected Slowly begin to draw the pixel but whilst we do two validation checks, if 5 selected then store in user selected memory map
-## [5] VERIFY
-check is the position already selected, if so we cant change the colour of that pixel, check is the previous position selected if so we cant change that back to black
-
-## [6] CHECK FOR WIN
-Check if user selected memory map matches the level memory map
-
-## [6] OTHERWISE FAIL
-If failed stop the game, wrongly selected pixels flash, correct pixels selected stay red, unselected correct pixels go green. allow a user to reset with SW-D go back to the start and reset levels/memory tables/peripherals
-
 
