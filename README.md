@@ -37,6 +37,7 @@ comments in `pixel_puzzel.s`.
         ^                                                                          |
         |                                                                          v
    [6] OTHERWISE FAIL <- [6] CHECK FOR WIN <- [5] VERIFY <- [4] DRAW PIXEL
+```
 <details> <summary><b>Diagram view (Mermaid)</b></summary>
 mermaid
 Copy code
