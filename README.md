@@ -66,3 +66,11 @@ flowchart TB
   %% Hide the subgraph boxes (cleaner look)
   style TOP fill:transparent,stroke:transparent
   style BOTTOM fill:transparent,stroke:transparent
+```
+
+## How I made the code efficient
+
+- Memory tables
+- Jump and branches via stored locations in memory tables then overwriting PC value
+- Reusing subroutines e.g. reset
+
