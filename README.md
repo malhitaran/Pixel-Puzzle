@@ -24,6 +24,19 @@ Pixel Puzzle is a pattern-copying game written entirely in low level STUMP assem
 - Once a player fails wrongly selected pixels flash, correct pixels selected stay red, unselected correct pixels go green.
 
 ---
+
+## Project Structure
+
+This repository follows the structure provided for the university exercise.
+
+- **`Exercise3/`**  
+  Contains the full Pixel Puzzle project as submitted for the coursework.
+
+- **`Exercise3/pixel_puzzel.s`**  
+  The **main source file** containing all core game logic, including the execution
+  cycle described in the *Main Game Logic* section.
+
+
 ## Main Game Logic
 
 This project’s core loop follows the same execution cycle shown in the `GAME LOGIC`
