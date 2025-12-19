@@ -34,64 +34,19 @@ Pixel Puzzle is a pattern-copying game written entirely in low level STUMP assem
 ---
 ## Main Game Logic
 
-The Pixel Puzzle game follows a fixed execution cycle that continuously updates
-the display, processes user input, and checks win/fail conditions.
+The game runs as a fixed execution cycle (mirroring the `GAME LOGIC` section in the assembly).
 
-### Execution Cycle Overview
+### Pixel Puzzles Execution Cycle
 
-
+```mermaid
 flowchart LR
-    A[Reset / Initialize System] --> B[Initialize Display]
-    B --> C[Display Level]
-    C --> D[Assess User Input]
-    D --> E[Draw Pixel]
-    E --> F[Verify Move]
-    F --> G{Win Condition?}
-    G -- Yes --> H[Game Complete]
-    G -- No --> D
-    D --> I{Invalid / Fail State?}
-    I -- Yes --> J[Fail / Retry]
-    J --> A
-sql
-Copy code
-
-This **directly maps** to your assembly comments and makes the cycle *immediately understandable*.
-
----
-
-## ✅ Then explain each stage (this is the right move)
-After the diagram, explain each block clearly:
-
-```md
-### Logic Stages
-
-**Reset / Initialize System**  
-Resets registers, clears memory, and prepares the system for execution.
-
-**Initialize Display**  
-Sets up the pixel grid and prepares the output buffer for rendering.
-
-**Display Level**  
-Renders the current puzzle state to the screen.
-
-**Assess User Input**  
-Reads user controls and determines the intended action.
-
-**Draw Pixel**  
-Updates the grid based on the user input.
-
-**Verify Move**  
-Checks whether the move is valid and updates internal state.
-
-**Win Condition Check**  
-Determines whether the puzzle has been successfully completed.
-
-**Fail / Retry**  
-Handles invalid moves or failed attempts and resets the cycle if needed.
----
-
-## Notes
-
-- Filenames are kept as originally submitted (e.g. `pixel_puzzel.*`).
-- Demo videos are stored in the `assets/` folder.
+  S0["[0] RESET / INIT SYSTEM"] --> S1["[1] INIT DISPLAY"]
+  S1 --> S2["[2] DISPLAYING LEVEL"]
+  S2 --> S3["[3] ASSESSING USER INPUT"]
+  S3 --> S4["[4] DRAW PIXEL"]
+  S4 --> S5["[5] VERIFY"]
+  S5 --> S6{"[6] CHECK FOR WIN"}
+  S6 -- Win --> WIN["WIN (LEVEL COMPLETE)"]
+  S6 -- Otherwise --> FAIL["[6] OTHERWISE FAIL"]
+  FAIL --> S0
 
