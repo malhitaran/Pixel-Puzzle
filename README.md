@@ -9,10 +9,10 @@ Pixel Puzzle is a simple pattern-copying game: you’re shown a target pixel pat
 ## Demo Videos
 
 **Gameplay demo (click to watch):**  
-[![Gameplay Demo](assets/gameplay_preview.gif)](assets/gameplay_demo.mp4)
+[Pixel Puzzle – Gameplay Demonstration](assets/pixel-puzzle-demonstration.MOV)
 
 **Code walkthrough (click to watch):**  
-[![Code Walkthrough](assets/code_preview.gif)](assets/code_walkthrough.mp4)
+[Pixel Puzzle – Code Overview](assets/pixel-puzzle-code.MOV)
 
 ---
 
@@ -41,12 +41,10 @@ This project was built for a university exercise environment.
 2. Assemble/build `pixel_puzzel.s`.
 3. Run the program and follow the on-screen output/controls.
 
-> If you want, tell me what tool you run it with (e.g., ModelSim / a custom emulator / etc.) and I’ll replace this section with exact commands.
-
 ---
 
 ## Notes
 
-- Filenames are kept as originally submitted (e.g., `pixel_puzzel.*`).
-- Videos are stored in `assets/` and linked from the README.
+- Filenames are kept as originally submitted (e.g. `pixel_puzzel.*`).
+- Demo videos are stored in the `assets/` folder.
 
