@@ -9,10 +9,8 @@ Pixel Puzzle is a simple pattern-copying game: you’re shown a target pixel pat
 ## Demo Videos
 
 **Gameplay demo (click to watch):**  
-[![Gameplay demo](assets/gameplay.gif)](https://youtube.com/shorts/bgiTwdzC3rY?feature=share)
+[![Gameplay demo](assets/gameplay.gif)](https://youtube.com/shorts/2wOikNK8kIo?feature=share)
 
-**Code walkthrough (click to watch):**  
-[![Code walkthrough](assets/code.gif)](https://youtube.com/shorts/twlATAzdbrI?feature=share)
 
 ---
 
