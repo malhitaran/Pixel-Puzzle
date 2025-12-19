@@ -2,7 +2,7 @@
 
 Pixel Puzzle is a simple pattern-copying game: you’re shown a target pixel pattern, and your goal is to recreate it by toggling pixels on the grid until your board matches the target.
 
-> This repo contains my **Exercise 3** submission files.
+> This repo contains my **Exercise 3** submission files which achieved a 96% mark.
 
 ---
 
